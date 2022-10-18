@@ -1,0 +1,10 @@
+.preview_html {
+  background: rgb(255, 255, 255);
+  padding: 15px;
+  border: 2px solid rgb(221, 221, 221);
+  width: 100%;
+  box-sizing: border-box;
+  z-index: 9999;
+  position: absolute;
+  cursor: move;
+}

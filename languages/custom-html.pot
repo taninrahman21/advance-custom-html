@@ -1,0 +1,84 @@
+# Copyright (C) 2022 bPlugins LLC
+# This file is distributed under the GPLv3.
+msgid ""
+msgstr ""
+"Project-Id-Version: Custom HTML Block 1.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/custom-html\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2022-10-18T13:33:37+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.6.0\n"
+"X-Domain: custom-html\n"
+
+#. Plugin Name of the plugin
+msgid "Custom HTML Block"
+msgstr ""
+
+#. Description of the plugin
+msgid "Write code like editor like editor"
+msgstr ""
+
+#. Author of the plugin
+msgid "bPlugins LLC"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "http://bplugins.com"
+msgstr ""
+
+#: dist/editor.js:6
+#: dist/editor.js:29251
+msgid "Settings"
+msgstr ""
+
+#: dist/editor.js:6
+#: dist/editor.js:29253
+msgid "Font Size"
+msgstr ""
+
+#: dist/editor.js:6
+#: dist/editor.js:29417
+#: dist/editor.js:29418
+#: dist/editor.js:29420
+#: dist/editor.js:29423
+msgid "Preview"
+msgstr ""
+
+#: dist/editor.js:6
+#: dist/editor.js:29421
+msgid "HTML"
+msgstr ""
+
+#: dist/editor.js:6
+#: dist/editor.js:29424
+msgid "HTML with Preview"
+msgstr ""
+
+#: block.json
+msgctxt "block title"
+msgid "Custom HTML"
+msgstr ""
+
+#: block.json
+msgctxt "block description"
+msgid "Write code like editor like editor."
+msgstr ""
+
+#: block.json
+msgctxt "block keyword"
+msgid "custom html"
+msgstr ""
+
+#: block.json
+msgctxt "block keyword"
+msgid "code"
+msgstr ""
+
+#: block.json
+msgctxt "block keyword"
+msgid "html"
+msgstr ""
