@@ -1,19 +1,19 @@
-=== Custom HTML block - write code like editor like editor. ===
+=== Advance Custom HTML   ===
 Contributors: abuhayat, charlescormier
 Donate link: https://gum.co/wpdonate/
 Tags: block, HTML, code, custom HTML, JavaScript, gutenberg block
 Requires at least: 5.8+
-Tested up to: 6.0.3
-Stable tag: 1.0.6
+Tested up to: 6.1
+Stable tag: 1.0.0
 Requires PHP: 7.1
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
-Write code like editor like editor
+An advance html code editor which enable you to code professionally. It provides different skins, denting, correction and more. 
 
 == Description ==
 
-Write code like editor like editor
+An advance html code editor which enable you to code professionally. It provides different skins, denting, correction and more. 
 
 = Features =
 * Easy to use
