@@ -16,7 +16,7 @@ if ( !defined( 'ABSPATH' ) ) { exit; }
 define( 'ACHB_VER', isset( $_SERVER['HTTP_HOST'] ) && 'localhost' === $_SERVER['HTTP_HOST'] ? time() : '1.0.0' );
 define( 'ACHB_DIR', plugin_dir_url( __FILE__ ) . 'assets/' );
 
-class BCustomHTML{
+class ACHB_Main{
 	function __construct(){
 		add_action( 'init', [$this, 'init'] );
 	}
@@ -36,4 +36,4 @@ class BCustomHTML{
 		return $HTML;
 	} 
 }
-new BCustomHTML;
+new ACHB_Main;
