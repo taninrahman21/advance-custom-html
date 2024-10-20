@@ -4,7 +4,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
-// const ESLintPlugin = require("eslint-webpack-plugin");
+const ESLintPlugin = require("eslint-webpack-plugin");
 
 module.exports = (env, argv) => {
   function isDev() {
@@ -14,11 +14,10 @@ module.exports = (env, argv) => {
   var config = {
     entry: {
       editor: "./src/editor.js",
-      script: "./src/script.js",
     },
     output: {
       filename: "[name].js",
-      // path: path.resolve(__dirname, "dist"),
+      path: path.resolve(__dirname, "dist"),
     }, // Output
 
     optimization: {
@@ -40,7 +39,7 @@ module.exports = (env, argv) => {
           return chunkData.chunk.name === "script" ? "style.css" : "[name].css";
         },
       }), // Separate file for css
-      // new ESLintPlugin(),
+      new ESLintPlugin(),
     ], // Plugins
 
     devtool: isDev() ? "cheap-module-source-map" : "source-map", // Source map

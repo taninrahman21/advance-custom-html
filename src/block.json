@@ -19,6 +19,30 @@
     "fontSize": {
       "type": "number",
       "default": 15
+    },
+    "mainEditor": {
+      "type": "object",
+      "default": {
+        "theme": "aura",
+        "language": "html",
+        "lineHeight": 1.5
+      }
+    },
+    "options": {
+      "type": "object",
+      "default": {
+        "wrap": true,
+        "readOnly": true,
+        "showLineNumbers": true,
+        "showPrintMargin": true,
+        "highlightActiveLine": true,
+        "autocompletion": true,
+        "syntaxHighlighting": true,
+        "wrapEnabled": true,
+        "foldGutter": true,
+        "tabSize": 2
+
+      }
     }
   },
   "supports": {
@@ -31,5 +55,7 @@
       "HTML": "<h3>write code on advanced code editor</h3>"
     }
   },
-  "editorScript": "file:dist/editor.js"
+  "render": "file:./render.php",
+  "editorScript": "file:./index.js",
+  "editorStyle": ["file:./index.css"]
 }

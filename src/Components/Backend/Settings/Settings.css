@@ -1,0 +1,15 @@
+.my-tab-panel .components-tab-panel__tabs {
+  display: flex;
+  justify-content: space-between;
+}
+.components-button.components-tab-panel__tabs-item {
+  font-size: 20px;
+  width: 100%;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  justify-content: center;
+}
+.components-button.components-tab-panel__tabs-item.active-tab {
+  background-color: #635bbc;
+  color: #ffffff;
+}

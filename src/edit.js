@@ -1,101 +1,55 @@
-import { basicSetup, EditorView } from "codemirror";
-import { javascript } from "@codemirror/lang-javascript";
-import { html, htmlLanguage } from "@codemirror/lang-html";
-import { Compartment, EditorState } from "@codemirror/state";
-import { keymap } from "@codemirror/view";
-import { indentMore, indentLess, indentSelection } from "@codemirror/commands";
-import { oneDark } from "@codemirror/theme-one-dark";
-import Draggable from "react-draggable";
+import { css } from '@codemirror/lang-css';
+import { html } from '@codemirror/lang-html';
+import { javascript } from '@codemirror/lang-javascript';
+import { json } from '@codemirror/lang-json';
+import { python } from '@codemirror/lang-python';
 
-/**
- * WordPress dependencies
- */
-import { __ } from "@wordpress/i18n";
-import { useCallback, useEffect, useMemo, useRef, useState } from "@wordpress/element";
-import { transformStyles, store as blockEditorStore, BlockControls } from "@wordpress/block-editor";
+// import { css } from '@codemirror/lang-css';
+import { php } from '@codemirror/lang-php';
+
+import CodeMirror, { EditorView } from '@uiw/react-codemirror';
+
+import Settings from "./Components/Backend/Settings/Settings";
+import Styles from './Components/Common/Styles';
+import { themeMap } from './utils/functions';
+// import { BlockControls } from '@wordpress/block-editor/build/components';
+// import { SandBox, ToolbarButton, ToolbarGroup } from '@wordpress/components';
+import { __ } from '@wordpress/i18n';
+
+
+import { BlockControls, store as blockEditorStore, transformStyles } from "@wordpress/block-editor";
 import { SandBox, ToolbarButton, ToolbarGroup } from "@wordpress/components";
 import { useSelect } from "@wordpress/data";
+import { useMemo, useRef, useState } from "@wordpress/element";
+import Draggable from 'react-draggable';
 
-import Settings from "./Settings";
-import Style from "./Style";
+// Map selected language to its CodeMirror extension
+const languageExtensionsMap = {
+  javascript: javascript({ jsx: true }),
+  html: html(),
+  css: css(),
+  php: php(),
+  json: json(),
+  python: python()
+};
 
-const Edit = (props) => {
-  const { attributes, setAttributes, clientId, isSelected } = props;
-  const { uniqueId, HTML } = attributes;
 
-  const dom = useRef();
+
+
+const Edit = ({ attributes, setAttributes, isSelected }) => {
+  const { HTML, options, mainEditor } = attributes;
+  const { showLineNumbers, foldGutter, tabSize, highlightActiveLine, autocompletion, wrapEnabled } = options; // Extract line number visibility option
+  const { language, theme } = mainEditor;
+
+
   const [deltaPosition, setDeltaPosition] = useState({ x: 100, y: 50 });
   const [mode, setMode] = useState("html");
+  const dom = useRef();
 
-  let language = new Compartment();
-  let tabSize = new Compartment();
-
-  const languageConf = new Compartment();
-
-  const autoLanguage = EditorState.transactionExtender.of((tr) => {
-    if (!tr.docChanged) return null;
-    let docIsHTML = /^\s*</.test(tr.newDoc.sliceString(0, 100));
-    let stateIsHTML = tr.startState.facet(language) == htmlLanguage;
-    if (docIsHTML == stateIsHTML) return null;
-    return {
-      effects: languageConf.reconfigure(docIsHTML ? html() : javascript()),
-    };
-  });
-
-  useEffect(() => {
-    clientId && setAttributes({ uniqueId: `ch${clientId.substring(0, 8)}` });
-  }, [clientId]); // Set & Update clientId to cId
-
-  let state = EditorState.create({
-    doc: HTML,
-    extensions: [
-      basicSetup,
-      languageConf.of(html()),
-      autoLanguage,
-      tabSize.of(EditorState.tabSize.of(8)),
-      EditorView.updateListener.of(function (e) {
-        setAttributes({ HTML: e.state.doc.toString() });
-      }),
-      oneDark,
-      keymap.of([
-        {
-          key: "F11",
-          run: async () => {
-            if (!document.fullscreenElement) {
-              dom.current?.requestFullscreen();
-            } else {
-              document.exitFullscreen();
-            }
-          },
-        },
-        {
-          key: "Tab",
-          preventDefault: true,
-          run: indentMore,
-        },
-        {
-          key: "Shift-Tab",
-          preventDefault: true,
-          run: indentLess,
-        },
-      ]),
-    ],
-  });
-
-  const init = useCallback(() => {
-    if (!dom.current?.innerHTML) {
-      const view = new EditorView({
-        state,
-        parent: dom.current,
-      });
-      window.view = view;
-      window.state = state;
-    }
-  }, []);
-
-  useEffect(() => {
-    init();
-  }, []);
+  const extensions = [
+    languageExtensionsMap[language],
+    wrapEnabled ? EditorView.lineWrapping : []
+  ];
 
   const handleDrag = (e, ui) => {
     const { x, y } = deltaPosition;
@@ -105,24 +59,40 @@ const Edit = (props) => {
     });
   };
 
-  useEffect(() => {
-    if (["html", "preview_html"].includes(mode)) {
-      dom.current.style.display = "block";
-    } else {
-      dom.current.style.display = "none";
-    }
-  }, [mode]);
 
   return (
     <>
-      <Settings {...props} />
-      <Style attributes={attributes} clientId={clientId} />
+      <Styles attributes={attributes} />
+      <Settings attributes={attributes} setAttributes={setAttributes} />
+
       {mode === "preview_html" && (
         <Draggable onDrag={handleDrag} position={deltaPosition}>
           <div className={mode} dangerouslySetInnerHTML={{ __html: HTML }}></div>
         </Draggable>
       )}
-      <div className={uniqueId} ref={dom}></div>
+
+      {mode !== "preview" && (
+        <CodeMirror
+          ref={dom}
+          className="custom-codemirror"
+          value={HTML}
+          height="200px"
+          extensions={extensions}
+          theme={themeMap[theme]}
+          onChange={(value) => {
+            setAttributes({ HTML: value });
+          }}
+          basicSetup={{
+            lineNumbers: showLineNumbers,
+            foldGutter,
+            highlightActiveLine,
+            tabSize,
+            autocompletion,
+          }}
+        />
+      )}
+
+
       {mode === "preview" && <HTMLEditPreview content={HTML} isSelected={isSelected} />}
 
       <BlockControls>
@@ -141,7 +111,9 @@ const Edit = (props) => {
     </>
   );
 };
+
 export default Edit;
+
 
 const DEFAULT_STYLES = `
    html,body,:root {
