@@ -27,9 +27,29 @@
     "mainEditor": {
       "type": "object",
       "default": {
-        "theme": "aura",
+        "theme": "oneDark",
         "language": "html",
-        "lineHeight": 1.5
+        "copyBtnType": "icon",
+        "copyBtnPosition": "topright",
+        "height": "400px",
+        "width": "100%"
+      }
+    },
+    "headingStyles": {
+      "type": "object",
+      "default": {
+        "headlineText": "",
+        "titleColor": "#fff",
+        "titleTypo": {
+          "fontSize": "14"
+        },
+        "backgroundColor": "#000",
+        "padding": {
+          "top": "5px",
+          "right": "0px",
+          "bottom": "5px",
+          "left": "20px"
+        }
       }
     },
     "options": {
@@ -44,7 +64,22 @@
         "syntaxHighlighting": true,
         "wrapEnabled": true,
         "foldGutter": true,
-        "tabSize": 2
+        "tabSize": 2,
+        "displayCodeToFrontend": true,
+        "displayHeading": false,
+        "displayCopyBtn": false
+      }
+    },
+    "btnStyle": {
+      "type": "object",
+      "default": {
+        "textColor": "white",
+        "backgroundColor": "#4a90e2",
+        "typo": {
+          "fontSize": 12
+        },
+        "copyBtnIconColor": "#4a90e2",
+        "copyBtnIconSize": 25
       }
     }
   },
@@ -61,9 +96,9 @@
       "HTML": "<h3>write code on advanced code editor</h3>"
     }
   },
-  "render": "file:./render.php",
   "editorScript": "file:./index.js",
   "editorStyle": [
     "file:./index.css"
-  ]
+  ],
+  "script": "file:./view.js"
 }

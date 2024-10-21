@@ -29,10 +29,7 @@ class ACHB_Main
 	{
 
 		register_block_type(__DIR__ . '/build', [
-			'render_callback' => function ($attrs) {
-				extract($attrs);
-				return $HTML;
-			}
+			'render_callback' => [$this, 'render']
 		]);
 
 		wp_set_script_translations('achb-editor', 'custom-html', plugin_dir_path(__FILE__) . 'languages');
@@ -41,7 +38,14 @@ class ACHB_Main
 	function render($attributes)
 	{
 		extract($attributes);
-		return $HTML;
+		$isDisplayCodeToFrontend = $attributes["options"]["displayCodeToFrontend"];
+		$id = wp_unique_id('bPluginsCustomHtml-');
+
+		if (empty($isDisplayCodeToFrontend)) {
+			return $HTML;
+		} else {
+			return '<div ' . get_block_wrapper_attributes() . ' id="' . esc_attr($id) . '" data-attributes="' . esc_attr(wp_json_encode($attributes)) . '"></div>';
+		}
 	}
 }
 new ACHB_Main;

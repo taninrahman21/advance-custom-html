@@ -6,28 +6,22 @@ import { languageOptions, themeOptions } from "../../../../utils/options";
 
 const General = ({ attributes, setAttributes }) => {
   const { fontSize, options, mainEditor } = attributes;
-  const { language, theme, lineHeight } = mainEditor;
-  const { showLineNumbers, wrapEnabled, foldGutter, highlightActiveLine, autocompletion, tabSize } = options;
+  const { copyBtnType, language, theme, copyBtnPosition } = mainEditor;
+  const { showLineNumbers, wrapEnabled, foldGutter, highlightActiveLine, autocompletion, tabSize, displayHeading, displayCodeToFrontend, displayCopyButton } = options;
 
 
   return (
     <>
       <InspectorControls>
-        <PanelBody className="general" title={__("Settings", "custom-html")} initialOpen={true}>
+        <PanelBody title={__("Settings", "custom-html")} initialOpen={true}>
 
-          <SelectControl
-            label="Editor Theme"
-            value={theme}
-            options={themeOptions}
-            onChange={(theme) => setAttributes({ mainEditor: updateData(mainEditor, theme, "theme") })} />
+          {/* Toggle Display Coding */}
+          <ToggleControl
+            label={__('Display Code Snippets', 'custom-html')}
+            checked={displayCodeToFrontend}
+            onChange={(displayCodeToFrontend) => setAttributes({ options: { ...options, displayCodeToFrontend } })}
+          />
 
-          
-          <SelectControl
-            label="Select Language For Syntax"
-            value={language}
-            options={languageOptions}
-            onChange={(language) => setAttributes({ mainEditor: updateData(mainEditor, language, "language") })} />
-          
 
           <RangeControl
             label={__("Font Size", "custom-html")}
@@ -49,62 +43,103 @@ const General = ({ attributes, setAttributes }) => {
             step={2}
           />
 
-          {/* // Line Height Control */}
-          {/* <RangeControl
-            label={__("Line Height", "custom-html")}
-            value={lineHeight}
-            onChange={(lineHeight) => setAttributes({ mainEditor: updateData(mainEditor, lineHeight, "lineHeight") })} 
-            min={1.5}
-            max={20}
-            step={.5}
-          /> */}
+          <SelectControl
+            label="Editor Theme"
+            value={theme}
+            options={themeOptions}
+            onChange={(theme) => setAttributes({ mainEditor: updateData(mainEditor, theme, "theme") })} />
 
 
-        </PanelBody>
+          <SelectControl
+            label="Select Language For Syntax"
+            value={language}
+            options={languageOptions}
+            onChange={(language) => setAttributes({ mainEditor: updateData(mainEditor, language, "language") })} />
 
-        <PanelBody title={__('Options', 'code-embed')}>
+          {/* Copy Button Type */}
+
+
+
 
           <ToggleControl
-            label={__('Show Line Numbers', 'code-embed')}
+            label={__('Display Heading', 'custom-html')}
+            checked={displayHeading}
+            onChange={(displayHeading) => setAttributes({ options: { ...options, displayHeading } })}
+          />
+
+          <ToggleControl
+            label={__('Hide/Show Copy Button', 'custom-html')}
+            checked={displayCopyButton}
+            onChange={(displayCopyButton) => setAttributes({ options: { ...options, displayCopyButton } })}
+          />
+
+          {
+            displayCopyButton && <SelectControl
+              label={__("Copy Button Type")}
+              value={copyBtnType}
+              options={[
+                { label: 'Text', value: 'text' },
+                { label: 'Icon', value: 'icon' }
+              ]}
+              onChange={(value) => setAttributes({ mainEditor: updateData(mainEditor, value, "copyBtnType") })}
+            />
+          }
+          {
+            (displayHeading === false) && (displayCopyButton) && <SelectControl
+              label="Copy Button Position"
+              value={copyBtnPosition}
+              options={[
+                { label: 'Top Right', value: 'topright' },
+                { label: 'Bottom Right', value: 'bottomright' }
+              ]}
+              onChange={(position) => setAttributes({ mainEditor: updateData(mainEditor, position, "copyBtnPosition") })} />
+          }
+
+          <ToggleControl
+            label={__('Show Line Numbers', 'custom-html')}
             checked={showLineNumbers}
             onChange={(showLineNumbers) => setAttributes({ options: { ...options, showLineNumbers } })}
           />
 
           <ToggleControl
-            label={__('Highlight Active Line', 'code-embed')}
+            label={__('Highlight Active Line', 'custom-html')}
             checked={highlightActiveLine}
             onChange={(highlightActiveLine) => setAttributes({ options: { ...options, highlightActiveLine } })}
           />
 
           <ToggleControl
-            label={__('Fold Gutter', 'code-embed')}
+            label={__('Fold Gutter', 'custom-html')}
             checked={foldGutter}
             onChange={(foldGutter) => setAttributes({ options: { ...options, foldGutter } })}
           />
           <ToggleControl
-            label={__('Enable Autocompletion', 'code-embed')}
+            label={__('Enable Autocompletion', 'custom-html')}
             checked={autocompletion}
             onChange={(autocompletion) => setAttributes({ options: { ...options, autocompletion } })}
           />
           <ToggleControl
-            label={__('Wrap Enabled', 'code-embed')}
+            label={__('Wrap Enabled', 'custom-html')}
             checked={wrapEnabled}
             onChange={(wrapEnabled) => setAttributes({ options: { ...options, wrapEnabled } })}
           />
-          {/* <ToggleControl
-            label={__('Show Print Margin', 'code-embed')}
+
+        </PanelBody>
+
+
+
+        {/* <ToggleControl
+            label={__('Show Print Margin', 'custom-html')}
             checked={showPrintMargin}
             onChange={(showPrintMargin) => setAttributes({ options: { ...options, showPrintMargin } })}
           /> */}
 
-          {/* <ToggleControl
-            label={__('Read Only', 'code-embed')}
+        {/* <ToggleControl
+            label={__('Read Only', 'custom-html')}
             checked={readOnly}
             help={__('Applicable only for frontend view')}
             onChange={(readOnly) => setAttributes({ options: { ...options, readOnly } })}
           /> */}
 
-        </PanelBody>
       </InspectorControls>
     </>
   );

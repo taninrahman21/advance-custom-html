@@ -25,7 +25,7 @@ module.exports = {
 	],
 	'rules': {
 		'func-names': 'off',
-		'no-console': 'warn',
+		'no-console': 'off',
 		'no-unused-vars': 'warn',
 		'react/jsx-filename-extension': [
 			1, { 'extensions': ['.js', '.jsx'] }

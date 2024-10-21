@@ -1,4 +1,5 @@
 export const themeOptions = [
+  { label: 'One Dark', value: 'oneDark' },
   { label: 'Abcdef', value: 'abcdef' },
   { label: 'Abyss', value: 'abyss' },
   { label: 'Android Studio', value: 'androidstudio' },

@@ -35,7 +35,7 @@ import { tomorrowNightBlue } from '@uiw/codemirror-theme-tomorrow-night-blue';
 import { whiteDark } from '@uiw/codemirror-theme-white/dark';
 import { vscodeLight } from '@uiw/codemirror-theme-vscode';
 import { xcodeLight, xcodeDark } from '@uiw/codemirror-theme-xcode';
-
+import { oneDark } from "@codemirror/theme-one-dark";
 
 
 
@@ -99,4 +99,5 @@ export const themeMap = {
   vscodeLight,
   xcodeLight,
   xcodeDark,
+  oneDark
 };

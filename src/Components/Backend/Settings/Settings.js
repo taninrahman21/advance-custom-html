@@ -5,6 +5,7 @@ import './Settings.css';
 import General from './General/Genaral';
 import Styles from './Styles/Styles';
 
+
 const Settings = ({ attributes, setAttributes }) => {
   const { alignment } = attributes;
   return (
